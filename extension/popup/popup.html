@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mail Summariser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-left">
+      <div class="logo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+          <polyline points="22,6 12,13 2,6" />
+        </svg>
+      </div>
+      <span class="logo-text">Mail<strong>Snap</strong></span>
+    </div>
+    <div class="header-actions">
+      <button id="btn-refresh" class="icon-btn" title="Re-scrape email">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="23 4 23 10 17 10" />
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+        </svg>
+      </button>
+      <div id="status-dot" class="status-dot idle" title="Backend status"></div>
+    </div>
+  </header>
+
+  <!-- No email detected state-->
+  <div id="state-empty" class="state hidden">
+    <div class="empty-icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+        <polyline points="22,6 12,13 2,6" />
+      </svg>
+    </div>
+    <p class="empty-title">No email open</p>
+    <p class="empty-sub">Open an email in Outlook Web and click <strong>Refresh</strong>.</p>
+  </div>
+
+  <!-- Loading -->
+  <div id="state-loading" class="state hidden">
+    <div class="loader">
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+    </div>
+    <p class="loading-text">Summarising<span class="dots"></span></p>
+  </div>
+
+  <!-- Error -->
+  <div id="state-error" class="state hidden">
+    <div class="error-icon">⚠️</div>
+    <p id="error-msg" class="error-msg">Something went wrong.</p>
+    <button id="btn-retry" class="btn-primary">Try Again</button>
+  </div>
+
+  <!-- Summary -->
+  <div id="state-summary" class="state hidden">
+
+    <!-- Meta card -->
+    <div class="meta-card">
+      <!-- <div class="meta-row">
+        <span class="meta-label">Subject</span>
+        <span id="meta-subject" class="meta-value subject-val"></span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">From</span>
+        <span id="meta-sender" class="meta-value"></span>
+      </div> -->
+      <div class="meta-row">
+        <span class="meta-label">Words</span>
+        <span id="meta-words" class="meta-value badge"></span>
+      </div>
+    </div>
+
+    <!-- Keywords -->
+    <div class="section-label">Key Topics</div>
+    <div id="keywords" class="keywords"></div>
+
+    <!-- Summary bullets -->
+    <div class="section-label">Summary</div>
+    <ul id="summary-list" class="summary-list"></ul>
+
+    <!-- Footer actions -->
+    <div class="footer-actions">
+      <button id="btn-copy" class="btn-secondary">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+        </svg>
+        Copy Summary
+      </button>
+      <button id="btn-refresh-summary" class="btn-ghost">
+        Refresh
+      </button>
+    </div>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>
